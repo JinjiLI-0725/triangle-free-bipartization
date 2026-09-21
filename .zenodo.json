@@ -19,6 +19,7 @@
   ],
   "version": "0.1.1",
   "language": "eng",
+  "license": "MIT",
   "related_identifiers": [
     {
       "identifier": "https://github.com/JinjiLI-0725/triangle-free-bipartization",
