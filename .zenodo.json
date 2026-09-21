@@ -1,0 +1,29 @@
+{
+  "title": "Exchange Certificates for an Inductive Approach to Triangle-Free Graph Bipartization",
+  "upload_type": "software",
+  "description": "Reproducible computational and structural study of an inductive approach to triangle-free graph bipartization. The release includes the preprint, exact checking code, source corpus records, a deterministic 3-for-3 input builder, an independent scope verifier, regression testing, audit output, and SHA-256 checksums. For all 3,436 canonical graph classes in the saved n=15 hard-regime corpus with global L(G)=11, the recorded five-set X admits a 3-for-3 exchange Y with |X ∩ Y|=2 and d(G)-d(G-Y) <= 5. The full Erdős triangle-free bipartization conjecture is not claimed and remains open in general.",
+  "creators": [
+    {
+      "name": "Li, Jinji"
+    }
+  ],
+  "keywords": [
+    "extremal graph theory",
+    "triangle-free graphs",
+    "MaxCut",
+    "bipartization",
+    "computational mathematics",
+    "combinatorics",
+    "exact computation",
+    "exchange arguments"
+  ],
+  "version": "0.1.1",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/JinjiLI-0725/triangle-free-bipartization",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
