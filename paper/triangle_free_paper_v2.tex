@@ -1,0 +1,496 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{remark}{Remark}
+\newcommand{\mc}{\operatorname{MaxCut}}
+\newcommand{\dd}{d}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization}
+\author{Jinji Li}
+\date{Version 2.0 draft -- September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a graph $G$, let
+\[
+\dd(G)=|E(G)|-\mc(G)
+\]
+be the minimum number of edges whose deletion makes $G$ bipartite.
+A classical conjecture of Erd\H{o}s asserts that every triangle-free graph
+on $N$ vertices satisfies $\dd(G)\le N^2/25$; for $N=5k$ this is
+$\dd(G)\le k^2$.
+
+We study a five-vertex induction strategy whose target is
+\[
+\exists X\subseteq V(G),\ |X|=5:\qquad
+\dd(G)-\dd(G-X)\le 2k-1.
+\]
+The paper develops an exact coordinated-flip identity, a corresponding
+selection inequality, elementary edge/star/biclique interaction
+corollaries, and reproducible finite certificates for reduced extension
+models.  We also record exact computational diagnostics showing that
+stronger fixed-five-set statements can fail even when the existential
+induction target is easily repaired by changing the five-set.
+
+A correction to an earlier draft is important.  If
+\[
+\ell(X)=2\dd(G[X])+e(X,G-X),
+\]
+then the empty flip already proves the induction target whenever
+$\ell(X)\le 4k-1$.  Thus at $k=3$ the automatic range extends through
+$L(G)=11$, where $L(G)=\min_{|X|=5}\ell(X)$.  The previously reported
+$L=11$ exchange audit therefore remains a valid structural computation,
+but is not needed to prove the induction inequality in that regime.
+
+We place the project in the established language of frustration-critical
+signed graphs and weakly bipartite signed graphs.  The full Erd\H{o}s
+conjecture remains open; this manuscript is a structural and computational
+investigation of one proof architecture, not a proof of the conjecture.
+\end{abstract}
+
+\section{Introduction}
+
+For a finite simple graph $G$, define
+\[
+\dd(G)=\min\{|F|:F\subseteq E(G),\ G-F\text{ is bipartite}\}
+      =|E(G)|-\mc(G).
+\]
+Erd\H{o}s conjectured that every triangle-free graph on $N$ vertices
+satisfies
+\[
+\dd(G)\le \frac{N^2}{25}.
+\]
+The balanced blow-up of $C_5$ shows that the constant $1/25$ would be
+sharp. Balogh, Clemen and Lidick\'y proved the global bound $N^2/23.5$
+and proved the sharp $N^2/25$ bound in two density ranges
+\cite{BCL}.  A recent computer-assisted preprint of Ferudun proves the
+sharp value for every multiple of five up to $N=200$ \cite{Ferudun}.
+Consequently, the small finite cases appearing below are used as
+validation and structure-finding devices, not as new extremal evaluations.
+
+The induction target studied here is the following.
+
+\begin{conjecture}[Five-set induction target]
+For every triangle-free graph $G$ on $5k$ vertices, there exists a
+five-set $X\subseteq V(G)$ such that
+\[
+\dd(G)-\dd(G-X)\le 2k-1.
+\]
+\end{conjecture}
+
+If this statement holds for all $k$, induction from $k=1$ gives
+\[
+\dd(G)\le 1+3+\cdots+(2k-1)=k^2.
+\]
+Thus the problem becomes one of selecting a good five-set and extending an
+optimal coloring of the remaining graph.
+
+This paper has two goals.  First, we develop exact identities that separate
+boundary imbalance from internal recoloring gain.  Second, we use finite
+certificates to diagnose which strengthenings of the induction are
+plausible and which are false.
+
+\section{Literature context and scope}
+
+The quantity $\dd(G)$ is the edge odd-cycle-transversal number, equivalently
+the MaxCut defect.  In the language of signed graphs it is a special case
+of the frustration index.  Cappello and Steffen study $k$-critical signed
+graphs, where deleting any edge lowers the frustration index
+\cite{CappelloSteffen}.  We therefore do not claim the general notion of
+edge-criticality as new.
+
+Likewise, the odd-circuit-cover polyhedron and its integrality theory are
+classical.  Guenin's theorem characterizes weakly bipartite signed graphs
+by exclusion of an odd-$K_5$ minor; Schrijver gave a short proof, and
+Geelen--Guenin developed related packing consequences
+\cite{Schrijver,Guenin}.  These results are used here only as background
+for possible obstruction viewpoints.
+
+The contribution claimed in this manuscript is narrower: the specific
+five-set induction framework, the coordinated-flip selection identity and
+its use as a diagnostic tool, exact reduced-state certificates, and
+reproducible computations that distinguish fixed-set failure from
+existential five-set success.
+
+\section{Exact finite ground truth}
+
+All exact computations use
+\[
+\dd(G)=|E(G)|-\mc(G).
+\]
+As a regression computation, all $12{,}172$ triangle-free isomorphism
+classes on ten vertices were checked exactly, with
+\[
+\max \dd(G)=4,
+\]
+attained by the balanced $C_5$ blow-up $B_2$.  In view of
+\cite{Ferudun}, this computation is not a novelty claim.
+
+\section{Balanced and mixed extension certificates}
+
+The first reduction studies finite extension models organized around the
+five-part structure of balanced $C_5$ blow-ups.
+
+\subsection{Balanced-extension certificate}
+
+For $t=1,\ldots,25$, the exact C++ checker
+\texttt{scripts/check\_balanced\_extension.cpp} enumerates the reduced
+balanced-extension states.  In every batch the reported maximum gap is
+zero.
+
+\begin{proposition}[Balanced-extension certificate]
+For every balanced-extension state represented by the reduction at
+$t=1,\ldots,25$, the target inequality checked by the exact program holds.
+No violating state occurs in the enumerated reduced state space.
+\end{proposition}
+
+\subsection{Exact mixed $t=2$ closure}
+
+The mixed $t=2$ model contains $4{,}013{,}521$ maximal-pair states, of
+which $2{,}768{,}154$ are genuinely mixed.  Exact MaxCut evaluation gives
+maximum deletion distance $9$ over the full state space and maximum $8$
+among the genuinely mixed states.  A maximal-completion monotonicity
+argument reduces arbitrary represented legal states to maximal
+triangle-free completions.
+
+\begin{proposition}[Mixed $t=2$ certificate]
+Within the exact mixed $t=2$ extension model, all represented legal states
+are closed by maximal triangle-free completion.  Among maximal states the
+largest deletion distance is $9$, and among genuinely mixed states it is
+$8$.
+\end{proposition}
+
+These certificates motivated allowing the coloring of the core graph to
+change in a coordinated way.
+
+\section{Coordinated flips}
+\label{sec:flips}
+
+Fix a five-set $X\subseteq V(G)$ and put $H=G-X$.  Let $c$ be an optimal
+2-coloring of $H$.  For an assignment $a$ on $X$, let $E_c(a)$ denote the
+number of monochromatic edges contributed by $G[X]$ and $E(X,H)$ before
+modifying the core coloring.
+
+For $v\in V(H)$ define
+\[
+w_a(v)=
+\#\{\text{monochromatic edges from $v$ to $X$}\}
+-
+\#\{\text{bichromatic edges from $v$ to $X$}\},
+\]
+and
+\[
+\sigma_c(v)=
+\#\{\text{bichromatic core edges incident with $v$}\}
+-
+\#\{\text{monochromatic core edges incident with $v$}\}.
+\]
+For $S\subseteq V(H)$, let $m_c(S)$ be the number of monochromatic edges
+of $H[S]$ under $c$.
+
+\begin{lemma}[Coordinated-flip identity]
+If all colors on $S$ are flipped, then
+\[
+g_c(a,S)=
+\sum_{v\in S}\bigl(w_a(v)-\sigma_c(v)\bigr)
++2e(H[S])-4m_c(S)
+\]
+satisfies
+\[
+ b_G(c^S\cup a)-\dd(H)=E_c(a)-g_c(a,S),
+\]
+where $b_G(\cdot)$ is the number of monochromatic edges under the displayed
+coloring.
+\end{lemma}
+
+\begin{proof}
+Each boundary edge incident with a flipped vertex changes according to the
+signed contribution $w_a(v)$.  Each core edge with exactly one endpoint
+flipped changes according to $-\sigma_c(v)$ after summing over vertices.
+Internal edges of $H[S]$ are counted twice by the vertex sum and require
+the correction $2e(H[S])-4m_c(S)$.  Collecting these contributions gives
+the formula.
+\end{proof}
+
+The implemented admissible flip family consists of independent sets and
+sets inducing complete bipartite subgraphs, together with their
+complements.
+
+Let $\mu_X$ be the uniform distribution on optimal 2-colorings of $G[X]$,
+counting color reversals separately.  For fixed optimal $c$,
+\[
+\E_{a\sim\mu_X}E_c(a)
+=\dd(G[X])+\frac{e(X,H)}2.
+\]
+Define
+\[
+\Phi_X=
+\max_{c\text{ optimal on }H}
+\E_{a\sim\mu_X}\max_{S\text{ admissible}}g_c(a,S).
+\]
+
+\begin{proposition}[Coordinated-flip selection bound]
+For every five-set $X$,
+\[
+\dd(G)-\dd(G-X)
+\le
+\left\lfloor
+\dd(G[X])+\frac{e(X,G-X)}2-\Phi_X
+\right\rfloor.
+\]
+\end{proposition}
+
+\begin{proof}
+For each assignment $a$, choose an admissible flip maximizing the gain.
+The resulting coloring gives an upper bound on $\dd(G)$.  Average over
+$a\sim\mu_X$ and then maximize over the optimal core coloring $c$.
+Integrality gives the floor.
+\end{proof}
+
+\subsection{Bichromatic biclique corollary}
+
+Write
+\[
+x_a(v)=w_a(v)-\sigma_c(v).
+\]
+If $S=A\cup B$ induces a complete bipartite subgraph of $H$ and every
+internal edge is bichromatic under $c$, then $m_c(S)=0$ and
+$e(H[S])=|A||B|$.  Hence the flip identity immediately gives
+\[
+\boxed{
+ g_c(a,S)=\sum_{v\in S}x_a(v)+2|A||B|.
+}
+\]
+The pair and star formulas are the cases $K_{1,1}$ and $K_{1,t}$.
+These are exact bookkeeping corollaries rather than separate extremal
+results, but they are useful for identifying interaction gain that is
+invisible in singleton flips.
+
+\section{The exact empty-flip threshold}
+
+Define
+\[
+\ell(X)=2\dd(G[X])+e(X,G-X),
+\qquad
+L(G)=\min_{|X|=5}\ell(X).
+\]
+Setting $S=\varnothing$ gives $\Phi_X\ge0$ and therefore
+\[
+\dd(G)-\dd(G-X)
+\le
+\left\lfloor\frac{\ell(X)}2\right\rfloor.
+\]
+
+\begin{proposition}[Automatic five-set threshold]
+For a triangle-free graph on $5k$ vertices, if a five-set $X$ satisfies
+\[
+\ell(X)\le 4k-1,
+\]
+then
+\[
+\dd(G)-\dd(G-X)\le2k-1.
+\]
+In particular, Candidate A is automatic whenever $L(G)\le4k-1$.
+\end{proposition}
+
+\begin{remark}[Correction to Version 1]
+At $k=3$, the automatic threshold is $L(G)\le11$, not $L(G)\le10$.
+Thus global $L(G)=11$ is not a genuinely hard Candidate-A regime.  The
+$L=11$ computations below remain valid as experiments on exchange
+structure, but they are not required to prove the five-set inequality.
+\end{remark}
+
+\section{Fixed-set failure and exchange diagnostics}
+
+Early experiments suggested stronger fixed-five-set gain statements.  A
+direct actual-core analysis produced realizable residual configurations
+for which these stronger gain thresholds fail.  Importantly, failure of a
+strong fixed-$X$ statement does not imply failure of the existential
+five-set induction target.
+
+For $22$ residual witnesses, an exact audit over all
+$\binom{15}{5}=3003$ five-sets gives
+\[
+\max q_{\min}=4,
+\qquad
+q(Y)=\dd(G)-\dd(G-Y),
+\]
+and restricting to 3-for-3 exchanges relative to the original set gives
+restricted minima distributed as
+\[
+\begin{array}{c|rrrr}
+q_{\min} & 1 & 2 & 3 & 4\\ \hline
+\# & 1 & 10 & 8 & 3.
+\end{array}
+\]
+Thus every one of these explicit fixed-set obstructions is repaired by
+changing the five-set.
+
+\section{The saved global-$L=11$ 3-for-3 audit}
+
+A 3-for-3 exchange of a recorded five-set $X$ is a five-set $Y$ satisfying
+$|X\cap Y|=2$.  On fifteen vertices there are
+\[
+\binom52\binom{10}{3}=1200
+\]
+such exchanges.
+
+The saved corpus contains $3{,}436$ canonical records with global
+$L(G)=11$.  Relative to the distinguished recorded five-set, every one of
+these records admits a 3-for-3 exchange $Y$ with
+\[
+\dd(G)-\dd(G-Y)\le5.
+\]
+Among them, $762$ have $\dd(G)>5$ and require a nontrivial search; all
+$762$ pass.
+
+\begin{remark}[Interpretation after the threshold correction]
+Because $L(G)=11$ already lies in the automatic range at $k=3$, this audit
+is not a proof certificate needed for Candidate A.  Its value is
+structural: it demonstrates, on a precisely scoped saved corpus, that
+obstructions to stronger fixed-set statements can be repaired by a small
+exchange of the deletion set.
+\end{remark}
+
+The scope audit independently matches the $3{,}436$ global-$L=11$ IDs and
+canonical graph6 strings against the exchange file.  The statement is
+exhaustive only for this saved global-$L=11$ corpus; no claim is made here
+that the parent saved corpus is the full universe of triangle-free graphs
+on fifteen vertices.
+
+\section{Criticality and odd-cycle-cover language}
+
+The edge-bipartization number is the minimum size of an edge set meeting
+every odd cycle.  The following two elementary facts are useful when
+considering a hypothetical edge-minimal counterexample.
+
+\begin{lemma}[Critical edge and minimum transversal]
+For an edge $e$,
+\[
+\dd(G-e)=\dd(G)-1
+\]
+if and only if $e$ belongs to some minimum odd-cycle edge transversal of
+$G$.
+\end{lemma}
+
+\begin{proof}
+If a minimum transversal $T$ contains $e$, then $T\setminus\{e\}$
+bipartizes $G-e$, so $\dd(G-e)\le\dd(G)-1$; deleting one edge can reduce
+$\dd$ by at most one, hence equality holds.  Conversely, if
+$\dd(G-e)=\dd(G)-1$, a minimum transversal of $G-e$, together with $e$,
+is a minimum transversal of $G$ containing $e$.
+\end{proof}
+
+\begin{lemma}[Private odd-cycle witness]
+Let $T$ be an inclusion-minimal odd-cycle edge transversal.  For every
+$e\in T$ there exists an odd cycle $C_e$ with
+\[
+C_e\cap T=\{e\}.
+\]
+If $G$ is triangle-free, then $|C_e|\ge5$.
+\end{lemma}
+
+\begin{proof}
+If no such cycle existed, then every odd cycle meeting $e$ would also meet
+$T\setminus\{e\}$, so $T\setminus\{e\}$ would still meet every odd cycle,
+contradicting inclusion-minimality.
+\end{proof}
+
+These observations belong naturally to the existing theory of
+frustration-critical signed graphs \cite{CappelloSteffen}.  They are
+included to connect the five-set induction project with that language, not
+as novelty claims.
+
+Weakly bipartite signed graphs provide another relevant viewpoint.  The
+odd-circuit-cover polyhedron is integral exactly in the odd-$K_5$-minor-free
+class by Guenin's theorem \cite{Schrijver,Guenin}.  Any future LP-based
+attack on the Erd\H{o}s conjecture must therefore distinguish genuinely new
+triangle-free consequences from this established signed-graph theory.
+
+\section{Reproducibility}
+
+The principal release artifacts are:
+\begin{itemize}
+\item exact balanced- and mixed-extension checkers;
+\item \texttt{results/hard\_regime\_L\_n15/L\_records.tsv};
+\item \texttt{results/hard\_regime\_L\_n15/L11\_exchange.jsonl};
+\item \texttt{scripts/build\_L11\_3for3\_input.py};
+\item \texttt{scripts/check\_L11\_3for3\_all.cpp};
+\item deterministic audit outputs and SHA-256 checksums.
+\end{itemize}
+The computational claims are intended to be reproducible from explicit
+finite inputs.  We distinguish throughout between symbolic identities,
+finite exact certificates, and conjectural structural statements.
+
+\section{Discussion}
+
+The main lesson of the computation is negative as well as positive.
+Strong fixed-five-set statements can fail for realizable configurations,
+while the existential induction target remains true after changing the
+five-set.  This suggests that a successful proof, if it follows this
+architecture, should prioritize selection over increasingly elaborate
+certification of a distinguished set.
+
+The corrected floor threshold further simplifies the picture: at $k=3$,
+all global-$L=11$ records are already automatic for Candidate A.  The
+exchange audit should therefore be viewed as a diagnostic experiment on
+selection geometry rather than as evidence needed to close that regime.
+
+The critical signed-graph and weakly-bipartite viewpoints provide a useful
+external check on novelty.  Edge-criticality, private odd-cycle witnesses,
+and odd-$K_5$ integrality obstructions are part of established theory.  A
+future theorem paper should therefore contribute a genuinely new
+triangle-free structural statement connecting these tools to the sharp
+$N^2/25$ bound.
+
+\section*{Status and non-claims}
+
+The Erd\H{o}s triangle-free bipartization conjecture remains open in
+general.  This manuscript does not claim to solve it.  The finite
+computations at $n=10$ and $n=15$ are not claimed as new extremal
+evaluations.  The global-$L=11$ 3-for-3 audit is a structural computation,
+not a necessary proof of Candidate A after the corrected threshold.
+The manuscript's current contribution is a reproducible five-set induction
+framework, exact flip identities, reduced-state certificates, and explicit
+diagnostics of false strengthenings.
+
+\begin{thebibliography}{99}
+\bibitem{BCL}
+J. Balogh, F. C. Clemen, and B. Lidick\'y,
+\emph{Max Cuts in Triangle-Free Graphs},
+Extended Abstracts EuroComb 2021, Trends in Mathematics, Springer, 2021;
+arXiv:2103.14179.
+
+\bibitem{Ferudun}
+A. Ferudun,
+\emph{The Erd\H{o}s $n^2/25$ max-cut conjecture for small multiples of five,
+via a per-root-MaxCut envelope and blow-up integrality},
+arXiv:2606.28041, 2026.
+
+\bibitem{CappelloSteffen}
+C. Cappello and E. Steffen,
+\emph{Frustration-critical signed graphs},
+Discrete Applied Mathematics 322 (2022), 183--193;
+arXiv:2112.02664.
+
+\bibitem{Schrijver}
+A. Schrijver,
+\emph{A short proof of Guenin's characterization of weakly bipartite graphs},
+Journal of Combinatorial Theory, Series B 85 (2002), 79--83.
+
+\bibitem{Guenin}
+J. F. Geelen and B. Guenin,
+\emph{Packing Odd Circuits in Eulerian Graphs},
+Journal of Combinatorial Theory, Series B 86 (2002), 280--295.
+\end{thebibliography}
+
+\end{document}
