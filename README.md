@@ -1,5 +1,6 @@
 # Triangle-Free Bipartization
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22894110.svg)](https://doi.org/10.5281/zenodo.22894110)
 [![Latest Release](https://img.shields.io/github/v/release/JinjiLI-0725/triangle-free-bipartization)](https://github.com/JinjiLI-0725/triangle-free-bipartization/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -7,8 +8,8 @@ Reproducible computational and structural study of a five-vertex induction appro
 
 **Corrected v2 paper:** [PDF](paper/triangle_free_paper_v2.pdf) · [LaTeX source](paper/triangle_free_paper_v2.tex)  
 **Novelty audit:** [paper/NOVELTY_AUDIT_V2.md](paper/NOVELTY_AUDIT_V2.md)  
-**Archived v0.1.2 Zenodo record:** [10.5281/zenodo.22876896](https://doi.org/10.5281/zenodo.22876896)  
-**Next release:** v0.2.0 (corrected paper and metadata)
+**Corrected v0.2.0 Zenodo record:** [10.5281/zenodo.22894110](https://doi.org/10.5281/zenodo.22894110)  
+**Previous v0.1.2 record:** [10.5281/zenodo.22876896](https://doi.org/10.5281/zenodo.22876896)
 
 ## Important correction to v1
 
@@ -97,4 +98,15 @@ SCOPE_CERTIFICATE=PASS
 
 ## Citation
 
-The corrected release will be version **0.2.0**. The DOI above refers to the archived v0.1.2 Zenodo record; the v0.2.0 DOI will be added after Zenodo archives the corrected release.
+Please cite the corrected v0.2.0 Zenodo release:
+
+```bibtex
+@software{li_2026_triangle_free_bipartization_v020,
+  author  = {Jinji Li},
+  title   = {Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization},
+  year    = {2026},
+  version = {0.2.0},
+  doi     = {10.5281/zenodo.22894110},
+  url     = {https://doi.org/10.5281/zenodo.22894110}
+}
+```
