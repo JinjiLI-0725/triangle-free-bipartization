@@ -1,18 +1,19 @@
 cff-version: 1.2.0
-message: "If you use this software or computational certificate, please cite this repository and the accompanying preprint."
-title: "Triangle-Free Bipartization: Exchange Certificates and Reproducible Computation"
+message: "If you use this software or computational certificate, please cite this repository and the accompanying corrected preprint."
+title: "Triangle-Free Bipartization: Exchange Identities and Computational Diagnostics"
 type: software
 authors:
   - family-names: "Li"
     given-names: "Jinji"
 repository-code: "https://github.com/JinjiLI-0725/triangle-free-bipartization"
 url: "https://github.com/JinjiLI-0725/triangle-free-bipartization"
-version: "0.1.1"
-date-released: "2026-09-21"
+version: "0.2.0"
+date-released: "2026-09-22"
+license: "MIT"
 preferred-citation:
   type: article
   authors:
     - family-names: "Li"
       given-names: "Jinji"
-  title: "Exchange Certificates for an Inductive Approach to Triangle-Free Graph Bipartization"
+  title: "Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization"
   year: 2026
