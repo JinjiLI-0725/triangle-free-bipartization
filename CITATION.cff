@@ -9,6 +9,7 @@ repository-code: "https://github.com/JinjiLI-0725/triangle-free-bipartization"
 url: "https://github.com/JinjiLI-0725/triangle-free-bipartization"
 version: "0.2.0"
 date-released: "2026-09-22"
+doi: "10.5281/zenodo.22894110"
 license: "MIT"
 preferred-citation:
   type: article
@@ -17,3 +18,4 @@ preferred-citation:
       given-names: "Jinji"
   title: "Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization"
   year: 2026
+  doi: "10.5281/zenodo.22894110"
