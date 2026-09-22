@@ -1,7 +1,7 @@
 {
-  "title": "Exchange Certificates for an Inductive Approach to Triangle-Free Graph Bipartization",
+  "title": "Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization",
   "upload_type": "software",
-  "description": "Reproducible computational and structural study of an inductive approach to triangle-free graph bipartization. The release includes the preprint, exact checking code, source corpus records, a deterministic 3-for-3 input builder, an independent scope verifier, regression testing, audit output, and SHA-256 checksums. For all 3,436 canonical graph classes in the saved n=15 hard-regime corpus with global L(G)=11, the recorded five-set X admits a 3-for-3 exchange Y with |X ∩ Y|=2 and d(G)-d(G-Y) <= 5. The full Erdős triangle-free bipartization conjecture is not claimed and remains open in general.",
+  "description": "Corrected v2 release of a reproducible computational and structural study of a five-vertex induction approach to triangle-free graph bipartization. The release includes the corrected preprint, exact checking code, reduced-state certificates, source corpus records, deterministic verification scripts, audit output, citation metadata, and SHA-256 checksums. A key correction is that the empty-flip bound already proves the five-set induction target whenever L(G) <= 4k-1; thus at k=3 the automatic range extends through L(G)=11. The saved global-L=11 3-for-3 audit is therefore presented as exchange-structure evidence rather than a necessary proof certificate. The full Erdős triangle-free bipartization conjecture remains open.",
   "creators": [
     {
       "name": "Li, Jinji"
@@ -15,9 +15,10 @@
     "computational mathematics",
     "combinatorics",
     "exact computation",
-    "exchange arguments"
+    "exchange arguments",
+    "frustration index"
   ],
-  "version": "0.1.1",
+  "version": "0.2.0",
   "language": "eng",
   "license": "MIT",
   "related_identifiers": [
