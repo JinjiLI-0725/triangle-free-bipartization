@@ -1,1 +1,470 @@
-PLACEHOLDER
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newcommand{\mc}{\operatorname{MaxCut}}
+\newcommand{\dd}{d}
+\newcommand{\Opt}{\operatorname{Opt}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Optimal-Restriction Five-Sets and Global Cut Stability\\in Triangle-Free Graph Bipartization}
+\author{Jinji Li}
+\date{Version 3.0 draft -- September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a graph $G$, let
+\[
+\dd(G)=|E(G)|-\mc(G)
+\]
+be the minimum number of edges whose deletion makes $G$ bipartite.  A
+classical conjecture of Erd\H{o}s asserts that every triangle-free graph on
+$N$ vertices satisfies $\dd(G)\le N^2/25$; for $N=5k$ this is
+$\dd(G)\le k^2$.
+
+We investigate a five-vertex induction target
+\[
+\exists Y\subseteq V(G),\ |Y|=5:\qquad
+\dd(G)-\dd(G-Y)\le 2k-1.
+\]
+Earlier versions of this project emphasized local recoloring certificates.
+The present note shifts to a global cut-stability phenomenon suggested by
+exact computations.  For a maximum cut $f$ of $G$, let
+$R_f(Y)$ be the number of monochromatic edges under $f$ incident with $Y$,
+and let $\Delta_f(Y)$ be the additional decrease in monochromatic edges
+obtained by reoptimizing the cut on $G-Y$.  Then exactly
+\[
+\dd(G)-\dd(G-Y)=R_f(Y)+\Delta_f(Y).
+\]
+We call $Y$ \emph{optimal-restriction preserving} if some maximum cut of
+$G$ restricts to a maximum cut of $G-Y$, equivalently if
+$\Delta_f(Y)=0$ for some $f\in\Opt(G)$.
+
+On a saved canonical corpus of $19{,}270$ triangle-free graphs on
+$15$ vertices, an exact full-cut audit finds that every saved graph admits
+a five-set $Y$ with $\dd(G)-\dd(G-Y)\le5$ and with optimal-restriction
+preservation.  The same conclusion holds for all $5{,}337$ saved graphs
+with $L(G)\ge12$, all $2{,}103$ saved graphs with $\dd(G)>5$, and all
+seven exactly identified edge-critical graphs.  No failure occurs in the
+saved corpus.  A later optimal-face diagnostic finds at least $218$
+low-defect preserving five-sets per saved graph.
+
+We prove exact equivalences between optimal restriction, an intersection
+of optimal-cut faces under deletion, and a five-vertex extension frontier.
+Stronger shape properties of that frontier---monotonicity, one-step
+Lipschitz behavior, and discrete convexity---are explicitly falsified by
+saved witnesses.  Thus the surviving phenomenon is genuinely global: for
+some five-set, the combined remainder-plus-extension cost is minimized at
+an optimal remainder coloring even though the extension frontier itself
+can oscillate strongly.
+
+The full Erd\H{o}s conjecture remains open.  The contribution here is a
+reproducible global-cut phenomenon, exact equivalences that isolate it,
+and a sharply defined selection problem suggested by the full saved
+$n=15$ corpus.
+\end{abstract}
+
+\section{Introduction}
+
+For a finite simple graph $G$, define
+\[
+\dd(G)=\min\{|F|:F\subseteq E(G),\ G-F\text{ is bipartite}\}
+      =|E(G)|-\mc(G).
+\]
+Erd\H{o}s conjectured that every triangle-free graph on $N$ vertices
+satisfies
+\[
+\dd(G)\le \frac{N^2}{25}.
+\]
+The balanced blow-up of $C_5$ shows that $1/25$ would be sharp.  Balogh,
+Clemen and Lidick\'y proved the global $N^2/23.5$ bound and the sharp
+$N^2/25$ bound in two density ranges \cite{BCL}.  Ferudun gave a
+computer-assisted proof of the sharp value for multiples of five through
+$N=200$ \cite{Ferudun}.  The computations below are therefore used for
+structure discovery and exact diagnostics, not as new finite extremal
+evaluations.
+
+The induction target motivating this project is the following.
+
+\begin{conjecture}[Five-set induction target]
+For every triangle-free graph $G$ on $5k$ vertices, there exists a five-set
+$Y$ such that
+\[
+\dd(G)-\dd(G-Y)\le 2k-1.
+\]
+\end{conjecture}
+
+If this holds for every $k$, then induction gives
+\[
+\dd(G)\le 1+3+\cdots +(2k-1)=k^2.
+\]
+The challenge is that deleting $Y$ may cause the remaining graph to choose
+a substantially better global cut.  This note isolates that reoptimization
+term and studies an empirical phenomenon in which it vanishes for a
+suitable five-set.
+
+\section{Corrected automatic threshold}
+
+For a five-set $Y$, define
+\[
+\ell(Y)=2\dd(G[Y])+e(Y,G-Y),
+\qquad
+L(G)=\min_{|Y|=5}\ell(Y).
+\]
+The coordinated-flip selection inequality from the earlier project gives
+\[
+\dd(G)-\dd(G-Y)
+\le
+\left\lfloor
+\dd(G[Y])+\frac{e(Y,G-Y)}2-\Phi_Y
+\right\rfloor,
+\]
+where $\Phi_Y\ge0$ is an averaged recoloring gain.  Taking the empty flip
+immediately yields
+\[
+\dd(G)-\dd(G-Y)
+\le
+\left\lfloor\frac{\ell(Y)}2\right\rfloor.
+\]
+Hence:
+
+\begin{proposition}[Automatic threshold]
+If $G$ has $5k$ vertices and some five-set $Y$ satisfies
+\[
+\ell(Y)\le 4k-1,
+\]
+then
+\[
+\dd(G)-\dd(G-Y)\le 2k-1.
+\]
+\end{proposition}
+
+At $k=3$, the automatic range extends through $L(G)=11$.  This corrects
+the threshold used in Version 1 of the project.  Consequently the older
+$L=11$ exchange audit remains a valid structural computation but is not
+needed to establish the induction inequality in that regime.
+
+\section{Global reoptimization after deleting five vertices}
+
+Fix a maximum cut $f$ of $G$, represented as a 2-coloring.  For a five-set
+$Y$, put $H=G-Y$ and let $\operatorname{mono}_f(H)$ denote the number of
+monochromatic edges of $H$ under the restriction of $f$.
+
+Define
+\[
+R_f(Y)=\dd(G)-\operatorname{mono}_f(H),
+\]
+which is exactly the number of monochromatic edges of $f$ having at least
+one endpoint in $Y$.  Define the remainder reoptimization gain
+\[
+\Delta_f(Y)=\operatorname{mono}_f(H)-\dd(H)\ge0.
+\]
+Then:
+
+\begin{lemma}[Exact reoptimization decomposition]
+For every maximum cut $f$ of $G$ and every five-set $Y$,
+\[
+\boxed{
+\dd(G)-\dd(G-Y)=R_f(Y)+\Delta_f(Y).
+}
+\]
+\end{lemma}
+
+\begin{proof}
+Since $f$ is globally optimal, $\dd(G)$ is its monochromatic-edge count.
+Partition those monochromatic edges into the ones incident with $Y$ and
+the ones wholly inside $H$.  The latter number is
+$\operatorname{mono}_f(H)=\dd(H)+\Delta_f(Y)$.
+\end{proof}
+
+The local term $R_f(Y)$ is easy to average.  The difficulty is the global
+term $\Delta_f(Y)$, which measures how much the entire remainder can
+reorganize after deletion.
+
+\section{Optimal-restriction five-sets}
+
+\begin{definition}
+A pair $(f,Y)$ is \emph{optimal-restriction preserving} if
+$f\in\Opt(G)$ and the restriction $f|_{G-Y}$ is optimal for $G-Y$.
+Equivalently,
+\[
+\Delta_f(Y)=0.
+\]
+We call $Y$ an \emph{H0 witness} if it is good for the induction bound and
+is optimal-restriction preserving for at least one maximum cut:
+\[
+\dd(G)-\dd(G-Y)\le 2k-1,
+\qquad
+\exists f\in\Opt(G):\Delta_f(Y)=0.
+\]
+\end{definition}
+
+For such a pair,
+\[
+\dd(G)-\dd(G-Y)=R_f(Y),
+\]
+so the global reoptimization difficulty disappears completely.
+
+The following exact audit motivated the rest of the note.
+
+\begin{proposition}[Saved-corpus H0 phenomenon]
+In the saved canonical $n=15$ corpus used by this project, every one of
+$19{,}270$ graphs has an H0 witness.  In particular, the property holds
+for all $5{,}337$ saved graphs with $L(G)\ge12$, all $2{,}103$ saved graphs
+with $\dd(G)>5$, and all seven exactly identified edge-critical graphs.
+No failure occurs in the saved corpus.
+\end{proposition}
+
+This proposition is a statement about the precisely defined saved corpus.
+It is not claimed that the saved corpus exhausts all triangle-free graphs
+on $15$ vertices.
+
+A representative-sample audit first suggested the phenomenon on $40$
+graphs.  The exact full-corpus run then verified all $19{,}270$ saved
+graphs, with independent recomputation of the optimum of every saved
+witness core.  Both
+\[
+\max_G\min_{Y\text{ good}}\Delta_{\min}(Y)=0
+\]
+and the corresponding minimum cut-distance statistic were zero.
+
+\section{Abundance rather than uniqueness}
+
+The H0 witness is not rare in the saved data.  Subsequent diagnostics found
+that every saved graph has at least $218$ low-defect five-sets whose
+optimal-cut restriction family meets the optimal-cut family of the
+remainder.  A separate maximum-cut-oriented diagnostic found many such
+witnesses per optimum cut in the saved corpus.
+
+However, abundance alone does not prove the desired theorem.  Even for the
+balanced blow-up $B_3$, conditioning on preservation does not necessarily
+lower the mean defect count below the target.  Thus a proof requires more
+than a lower bound on the number of preserving five-sets.
+
+\section{Optimal-face projection formulation}
+
+For a five-set $Y$, define
+\[
+\operatorname{Res}_Y(G)=
+\{f|_{G-Y}: f\in\Opt(G)\}.
+\]
+Then the H0 preservation property is exactly an intersection statement.
+
+\begin{lemma}[Optimal-face equivalence]
+For a fixed five-set $Y$, the following are equivalent:
+\begin{enumerate}
+\item there exists $f\in\Opt(G)$ with $f|_{G-Y}\in\Opt(G-Y)$;
+\item $\operatorname{Res}_Y(G)\cap\Opt(G-Y)\neq\varnothing$;
+\item there exists $f\in\Opt(G)$ with $\Delta_f(Y)=0$.
+\end{enumerate}
+\end{lemma}
+
+The full saved-corpus diagnostics verify that every saved graph has many
+low-defect five-sets with nonempty intersection.  A direct projection
+counting identity can be obtained by double counting pairs $(f,Y)$, but
+naive averaging is obstructed because distinct remainder optima can have
+very different numbers of extensions back to global optima.  Thus the
+remaining proof problem is weighted rather than purely cardinality based.
+
+\section{The extension frontier}
+
+The same phenomenon has a second exact formulation that makes the
+remainder/extension tradeoff explicit.  Fix $Y$ and put $H=G-Y$.
+For each attainable integer $j\ge0$, define
+\[
+F_Y(j)=
+\min\{\text{extension cost over }Y:
+\text{the coloring of }H\text{ has }\dd(H)+j\text{ monochromatic edges}\},
+\]
+where the extension cost counts monochromatic edges in $G[Y]$ and between
+$Y$ and $H$, minimized over the $2^5$ assignments on $Y$.
+
+\begin{lemma}[Extension-frontier identity]
+For every five-set $Y$,
+\[
+\boxed{
+\dd(G)-\dd(G-Y)=\min_{j\ge0}\bigl(j+F_Y(j)\bigr).
+}
+\]
+Moreover, $Y$ is optimal-restriction preserving if and only if the minimum
+is attained at $j=0$, equivalently
+\[
+F_Y(0)=\dd(G)-\dd(G-Y).
+\]
+\end{lemma}
+
+Thus the exact H0 condition is
+\[
+j+F_Y(j)\ge F_Y(0)
+\qquad\text{for every attainable }j\ge1.
+\]
+
+The saved H0 witnesses show that this anchored combined-cost inequality is
+robust even though much stronger frontier-shape hypotheses are false.
+Among all $19{,}270$ saved witness frontiers, only $7{,}745$ satisfy the
+tested adjacent finite-layer slope condition, and only $2{,}405$ have
+$F_Y$ itself minimized at zero.  Saved witnesses can have large downward
+adjacent jumps.  In particular, monotonicity, one-step Lipschitz behavior,
+and discrete convexity of $F_Y$ are not universal.
+
+The empirical statement that survives is weaker and more precise:
+\[
+\boxed{
+\text{for some useful }Y,\quad j+F_Y(j)\text{ is minimized at }j=0.
+}
+\]
+
+\section{Why several natural proof shortcuts fail}
+
+The computational program deliberately tested and rejected several
+stronger statements.
+
+\paragraph{Fixed-set local certificates.}
+Singleton, pair, star, biclique, and a 32-flip local system provide exact
+identities and useful conditional bounds, but purely local five-set data
+does not control global remainder reoptimization in general.
+
+\paragraph{Simple witness selection rules.}
+Feature mining over all saved five-sets found no universal simple rule such
+as minimizing degree sum, boundary size, or a fixed induced five-vertex
+type.  A strong two-statistic rule covered $19{,}133/19{,}270$ saved graphs
+but still failed on $137$.
+
+\paragraph{Hitting-set and uncrossing arguments.}
+Minimal dangerous remainder flips can be taken connected, but can be large.
+The relevant signed cut-gain function is not generally submodular, so
+standard laminarity/uncrossing arguments do not directly force a
+five-vertex transversal.
+
+\paragraph{Lexicographic gain profiles.}
+Refining the objective by the multiplicities of gain levels does not force
+descent: isomorphic remainders can preserve the entire gain profile while
+replacing maximizing supports.
+
+\paragraph{Naive abundance averaging.}
+There may be many preserving deletions, yet the preserved-family conditional
+mean defect can exceed the target.  The obstruction is an extension-weight
+bias: remainder optima can have different numbers of extensions to global
+optima.
+
+These failures are useful diagnostics.  They indicate that the remaining
+problem is genuinely a global selection statement about the relation
+between the optimal-cut families of $G$ and $G-Y$.
+
+\section{Current theorem target}
+
+The full saved-corpus evidence suggests the following global stability
+statement.
+
+\begin{conjecture}[Optimal-restriction five-set principle]
+Let $G$ be triangle-free on $5k$ vertices.  Under the structural hypotheses
+forced by a genuine minimal counterexample to the Erd\H{o}s bound, there
+exists a five-set $Y$ and a maximum cut $f$ of $G$ such that
+\[
+f|_{G-Y}\in\Opt(G-Y)
+\]
+and
+\[
+R_f(Y)\le 2k-1.
+\]
+Equivalently,
+\[
+\dd(G)-\dd(G-Y)\le2k-1
+\]
+with no remainder reoptimization loss.
+\end{conjecture}
+
+A proof would close the five-set induction route immediately.  The current
+exact blocker is to show that not every low-defect deletion pair can fail
+optimal projection.  In optimal-face language, one seeks positivity of the
+low-defect intersection count after correctly accounting for extension
+multiplicities.  In frontier language, one seeks a five-set with
+$F_Y(0)\le2k-1$ for which no positive remainder-cost layer beats $j=0$.
+
+\section{Reproducibility and scope}
+
+The project contains exact bitmask MaxCut code, deterministic full-cut
+landscape audits, saved-corpus witness tables, independent validation tests,
+and SHA-256 checksums for release artifacts.  The v3 global-cut analyses
+were performed on the saved canonical $n=15$ corpus of $19{,}270$ graphs.
+The principal new artifacts are the global-cut landscape summaries, H0
+witness tables, extension-frontier diagnostics, and optimal-face projection
+notes.
+
+The following distinctions are maintained throughout:
+\begin{enumerate}
+\item exact symbolic identities;
+\item exact finite computations on explicitly defined saved corpora;
+\item conjectural general statements motivated by those computations.
+\end{enumerate}
+No claim is made that the saved $19{,}270$-graph corpus is the complete
+universe of triangle-free graphs on $15$ vertices unless a separate
+exhaustive-generation proof is supplied.
+
+\section{Discussion}
+
+The computational search changed direction substantially over the course
+of the project.  Early work focused on increasingly rich local recoloring
+certificates.  Exact counterexamples to several stronger local statements
+showed that the difficult part is not the five deleted vertices themselves,
+but the global reoptimization of the remainder.
+
+The full saved-corpus H0 audit then exposed a cleaner global pattern: after
+choosing the right five-set, the troublesome reoptimization term vanishes.
+That phenomenon survived all $19{,}270$ saved graphs and all tested hard
+subclasses, while many stronger regularity properties of the extension
+frontier failed.  The current evidence therefore points toward a theorem
+about projection/intersection of optimal-cut families rather than a theorem
+about local flip geometry.
+
+\section*{Status and non-claims}
+
+The Erd\H{o}s triangle-free bipartization conjecture remains open.  This
+manuscript does not claim a proof of the conjecture or of the five-set
+induction target in general.  The $19{,}270$-graph H0 statement is an exact
+saved-corpus result, not an exhaustive $n=15$ classification claim.  The
+purpose of the v3 note is to document the global cut-stability phenomenon,
+its exact equivalent formulations, and the strongest proof barriers
+identified so far.
+
+\begin{thebibliography}{99}
+\bibitem{BCL}
+J. Balogh, F. C. Clemen, and B. Lidick\'y,
+\emph{Max Cuts in Triangle-Free Graphs},
+Extended Abstracts EuroComb 2021, Trends in Mathematics, Springer, 2021;
+arXiv:2103.14179.
+
+\bibitem{Ferudun}
+A. Ferudun,
+\emph{The Erd\H{o}s $n^2/25$ max-cut conjecture for small multiples of five,
+via a per-root-MaxCut envelope and blow-up integrality},
+arXiv:2606.28041, 2026.
+
+\bibitem{CappelloSteffen}
+C. Cappello and E. Steffen,
+\emph{Frustration-critical signed graphs},
+Discrete Applied Mathematics 322 (2022), 183--193;
+arXiv:2112.02664.
+
+\bibitem{Schrijver}
+A. Schrijver,
+\emph{A short proof of Guenin's characterization of weakly bipartite graphs},
+Journal of Combinatorial Theory, Series B 85 (2002), 79--83.
+
+\bibitem{Guenin}
+J. F. Geelen and B. Guenin,
+\emph{Packing Odd Circuits in Eulerian Graphs},
+Journal of Combinatorial Theory, Series B 86 (2002), 280--295.
+\end{thebibliography}
+
+\end{document}
