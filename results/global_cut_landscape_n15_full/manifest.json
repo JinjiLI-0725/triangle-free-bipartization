@@ -1,0 +1,22 @@
+{
+  "corpus": "results/zero_margin_tightness/corpus.txt",
+  "corpus_sha256": "a2c465dfe7aa3c5435fb014ebd9d40fad27c06c87083733be296dff757189b34",
+  "expected_canonical_graphs": 19270,
+  "scope": "Full canonical saved-corpus snapshot used by the prior H0 sample; not all n=15 triangle-free graphs.",
+  "ordering": "Original corpus order; stop after the first failing graph.",
+  "binary_format": "For ascending 15-bit Y masks of popcount five: uint8 dH, uint8 Delta_min, uint8 rho; 3003 triples per graph. q=dG-dH.",
+  "reference_sample": "results/global_cut_landscape_n15",
+  "progress": "run.log and per-graph atomic checkpoints",
+  "validation": {
+    "sample_graphs": 40,
+    "sample_fivesets": 120120,
+    "exact_comparison": "All (dH, Delta_min, rho), graph summaries, Opt(G) and H0 witnesses match validated reference.",
+    "cost_kernels": "Canonical recurrence and 45-bit edge/cut-mask popcount produce byte-identical compact checkpoints.",
+    "sample_unit_tests": "2 passed; final completion test intentionally skipped for the validation fixture."
+  },
+  "source_hashes": {
+    "scripts/analyze_global_cut_landscape_n15.cpp": "6a0bf46f031a27c3b9f5023d3ccbcc63cfe88355f188f9a859307a4ee27edb1e",
+    "scripts/analyze_global_cut_h0_full.cpp": "2808db417614d5e503cec6772733c051df313be79dbc56a577e5069fa3c332bc",
+    "tests/test_global_cut_h0_full.py": "1826f9f4c5537cfc8bae2006a35717ab364d04bcb320a5d460499a0d1a73ce0d"
+  }
+}

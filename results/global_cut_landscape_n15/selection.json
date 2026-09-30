@@ -1,0 +1,10 @@
+{
+  "count": 40,
+  "B3_ids": [
+    19269
+  ],
+  "sampling": "Deterministic, bounded, non-random; saved corpus only",
+  "source_sha256": "a2c465dfe7aa3c5435fb014ebd9d40fad27c06c87083733be296dff757189b34",
+  "missing_previous_obstruction": "The three-layer 35-edge fixed-Y construction was not found in the saved corpus by its necessary degree and component signature; not generated.",
+  "warning": "Saved critical flags are selection metadata only; exact criticality is recomputed."
+}

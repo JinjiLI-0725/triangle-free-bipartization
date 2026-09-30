@@ -1,0 +1,49 @@
+rule	subset	graphs	selected_good	selected_H0	first_not_good	first_not_H0	has_good_tied_minimizer	has_H0_tied_minimizer	first_no_H0_tie
+min_ell	all	19270	19088	17868	614	49	19186	18860	166
+min_ell	d_gt_5	2103	1921	1653	614	398	2019	1946	614
+min_ell	L_ge_12	5337	5155	4810	614	207	5253	5211	614
+min_ell	edge_critical	7	5	5	9965	9965	6	6	19269
+min_degree_sum	all	19270	18686	14768	614	1	19038	18066	26
+min_degree_sum	d_gt_5	2103	1519	944	614	398	1871	1730	398
+min_degree_sum	L_ge_12	5337	4954	3843	614	120	5181	4908	120
+min_degree_sum	edge_critical	7	5	5	9965	9965	6	6	9965
+min_boundary	all	19270	19080	17870	614	49	19185	18869	166
+min_boundary	d_gt_5	2103	1913	1648	614	398	2018	1952	614
+min_boundary	L_ge_12	5337	5151	4817	614	207	5254	5215	614
+min_boundary	edge_critical	7	5	5	9965	9965	6	6	19269
+max_inherited_count	all	19270	19124	19124	942	942	19269	19269	9726
+max_inherited_count	d_gt_5	2103	1957	1957	942	942	2102	2102	9726
+max_inherited_count	L_ge_12	5337	5230	5230	942	942	5337	5337	
+max_inherited_count	edge_critical	7	7	7			7	7	
+min_ell_then_max_inherited	all	19270	19010	18693	614	166	19077	18760	166
+min_ell_then_max_inherited	d_gt_5	2103	1843	1779	614	614	1910	1846	614
+min_ell_then_max_inherited	L_ge_12	5337	5077	5044	614	614	5144	5111	614
+min_ell_then_max_inherited	edge_critical	7	6	6	19269	19269	6	6	19269
+min_degree_sum_then_max_inherited	all	19270	18898	17956	614	26	19025	18056	26
+min_degree_sum_then_max_inherited	d_gt_5	2103	1731	1620	614	398	1858	1720	398
+min_degree_sum_then_max_inherited	L_ge_12	5337	5093	4837	614	120	5173	4903	120
+min_degree_sum_then_max_inherited	edge_critical	7	6	6	9965	9965	6	6	9965
+min_boundary_then_max_inherited	all	19270	19004	18697	614	166	19069	18762	166
+min_boundary_then_max_inherited	d_gt_5	2103	1837	1780	614	614	1902	1845	614
+min_boundary_then_max_inherited	L_ge_12	5337	5075	5045	614	614	5140	5110	614
+min_boundary_then_max_inherited	edge_critical	7	6	6	19269	19269	6	6	19269
+max_inherited_then_min_ell	all	19270	18959	18959	403	403	19073	19073	403
+max_inherited_then_min_ell	d_gt_5	2103	1792	1792	403	403	1906	1906	403
+max_inherited_then_min_ell	L_ge_12	5337	5085	5085	614	614	5175	5175	614
+max_inherited_then_min_ell	edge_critical	7	7	7			7	7	
+max_inherited_then_min_degree_sum	all	19270	19133	19133	807	807	19212	19212	807
+max_inherited_then_min_degree_sum	d_gt_5	2103	1966	1966	807	807	2045	2045	807
+max_inherited_then_min_degree_sum	L_ge_12	5337	5239	5239	807	807	5295	5295	807
+max_inherited_then_min_degree_sum	edge_critical	7	7	7			7	7	
+max_inherited_then_min_boundary	all	19270	18936	18936	403	403	19062	19062	403
+max_inherited_then_min_boundary	d_gt_5	2103	1769	1769	403	403	1895	1895	403
+max_inherited_then_min_boundary	L_ge_12	5337	5074	5074	614	614	5171	5171	614
+max_inherited_then_min_boundary	edge_critical	7	7	7			7	7	
+min_ell_then_min_degree_sum	all	19270	19082	17918	614	49	19153	18572	131
+min_ell_then_min_degree_sum	d_gt_5	2103	1915	1668	614	614	1986	1880	614
+min_ell_then_min_degree_sum	L_ge_12	5337	5149	4828	614	207	5220	5129	207
+min_ell_then_min_degree_sum	edge_critical	7	5	5	9965	9965	6	6	19269
+min_boundary_then_min_degree_sum	all	19270	19074	17915	614	49	19148	18588	131
+min_boundary_then_min_degree_sum	d_gt_5	2103	1907	1667	614	614	1981	1887	614
+min_boundary_then_min_degree_sum	L_ge_12	5337	5145	4829	614	207	5218	5143	207
+min_boundary_then_min_degree_sum	edge_critical	7	5	5	9965	9965	6	6	19269

@@ -1,0 +1,37 @@
+{
+  "scope": "All 19270 canonical graphs of the frozen saved n=15 corpus; not all n=15 triangle-free graphs.",
+  "expected_rows": 57867810,
+  "rules_fixed_before_run": [
+    "min_ell",
+    "min_degree_sum",
+    "min_boundary",
+    "max_inherited_count",
+    "min_ell_then_max_inherited",
+    "min_degree_sum_then_max_inherited",
+    "min_boundary_then_max_inherited",
+    "max_inherited_then_min_ell",
+    "max_inherited_then_min_degree_sum",
+    "max_inherited_then_min_boundary",
+    "min_ell_then_min_degree_sum",
+    "min_boundary_then_min_degree_sum"
+  ],
+  "tie_break": "Lexicographic increasing vertex tuple, not numeric-mask order.",
+  "canonical_H0_criteria": [
+    "min_ell",
+    "min_degree_sum",
+    "min_boundary",
+    "lex_vertices"
+  ],
+  "prespecified_inequalities": [
+    "ell<=10",
+    "ell<=11",
+    "degree_sum<=11",
+    "boundary_size<=9"
+  ],
+  "prespecified_type_family": "independent or C5",
+  "sources": {
+    "results/zero_margin_tightness/corpus.txt": "a2c465dfe7aa3c5435fb014ebd9d40fad27c06c87083733be296dff757189b34",
+    "results/global_cut_landscape_n15_full/graph_summary.tsv": "ee98cb0f3e1eb430e5dd35449b8d8750fe7f5713a4ac6655989d754590774ca9",
+    "results/global_cut_landscape_n15_full/summary.json": "c9e25feb88a547bb1b96774e9b4ee6e0adb6e626801764dcc3f3e1fc2e14e2b1"
+  }
+}

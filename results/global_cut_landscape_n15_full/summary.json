@@ -1,0 +1,177 @@
+{
+  "all_cut_computations_exact": true,
+  "all_fiveset_binary_sha256": "8a4b16ef603bcc0bbefedff1ae5ebbb0140dcd6ccf609de9bf7d09a553f7cb99",
+  "complete": true,
+  "core_cuts_per_five_set": 512,
+  "critical_ids": [
+    2577,
+    8814,
+    9965,
+    18947,
+    19082,
+    19083,
+    19269
+  ],
+  "expected_graphs": 19270,
+  "first_failure": null,
+  "first_failure_graph6": null,
+  "five_sets_analyzed": 57867810,
+  "global_cuts_per_graph": 16384,
+  "global_identity_checks": 142147005,
+  "graphs_analyzed": 19270,
+  "h0_pass_count": 19270,
+  "h0_survives_full_saved_corpus": true,
+  "histograms": {
+    "L": {
+      "10": 2503,
+      "11": 3436,
+      "12": 3325,
+      "13": 1351,
+      "14": 384,
+      "15": 139,
+      "16": 58,
+      "17": 40,
+      "18": 15,
+      "19": 8,
+      "2": 105,
+      "20": 8,
+      "21": 5,
+      "22": 1,
+      "23": 1,
+      "24": 1,
+      "25": 1,
+      "3": 178,
+      "4": 389,
+      "5": 1140,
+      "6": 1705,
+      "7": 1591,
+      "8": 1141,
+      "9": 1745
+    },
+    "critical": {
+      "0": 19263,
+      "1": 7
+    },
+    "d": {
+      "0": 122,
+      "1": 1245,
+      "2": 2636,
+      "3": 4594,
+      "4": 4684,
+      "5": 3886,
+      "6": 1888,
+      "7": 211,
+      "8": 3,
+      "9": 1
+    },
+    "good_min_delta": {
+      "0": 19270
+    },
+    "good_min_rho": {
+      "0": 19270
+    }
+  },
+  "max_min_delta_good": 0,
+  "max_min_rho_good": 0,
+  "next_theorem_target": "Prove existence of a five-set Y such that q(Y)<=2k-1 and some global optimal cut of G restricts optimally to G-Y.",
+  "no_good_Y_sentinel": 99,
+  "prior_critical_flag_corrections": [
+    {
+      "exact": "1",
+      "id": 19082,
+      "old": "0"
+    },
+    {
+      "exact": "1",
+      "id": 19083,
+      "old": "0"
+    },
+    {
+      "exact": "1",
+      "id": 19269,
+      "old": "0"
+    }
+  ],
+  "prior_d_L_mismatches": [],
+  "priority_subsets": {
+    "B3": {
+      "analyzed": 1,
+      "expected": 1,
+      "failures": [],
+      "h0_pass": 1,
+      "survives": true
+    },
+    "all_saved_canonical_n15": {
+      "analyzed": 19270,
+      "expected": 19270,
+      "failures": [],
+      "h0_pass": 19270,
+      "survives": true
+    },
+    "d_edge_critical": {
+      "analyzed": 7,
+      "expected": null,
+      "failures": [],
+      "h0_pass": 7,
+      "survives": true
+    },
+    "d_gt_5": {
+      "analyzed": 2103,
+      "expected": 2103,
+      "failures": [],
+      "h0_pass": 2103,
+      "survives": true
+    },
+    "global_L_ge_12": {
+      "analyzed": 5337,
+      "expected": 5337,
+      "failures": [],
+      "h0_pass": 5337,
+      "survives": true
+    },
+    "previous_40_graph_sample": {
+      "analyzed": 40,
+      "expected": 40,
+      "failures": [],
+      "h0_pass": 40,
+      "survives": true
+    },
+    "previous_critical_witness_ids": {
+      "analyzed": 3,
+      "expected": 3,
+      "failures": [],
+      "h0_pass": 3,
+      "survives": true
+    },
+    "requested_witness_ids": {
+      "analyzed": 4,
+      "expected": 4,
+      "failures": [],
+      "h0_pass": 4,
+      "survives": true
+    }
+  },
+  "scope": "Full canonical saved-corpus snapshot used by the prior H0 sample; not all n=15 triangle-free graphs.",
+  "sha256": {
+    "results/global_cut_landscape_n15_full/failures.tsv": "b99bc0754198fd5abc24e217f5bcf98b9b85a4fd43c66d5089e559cd090a6046",
+    "results/global_cut_landscape_n15_full/graph_summary.tsv": "ee98cb0f3e1eb430e5dd35449b8d8750fe7f5713a4ac6655989d754590774ca9",
+    "results/global_cut_landscape_n15_full/h0_witnesses.tsv": "b9ac7acceee403458ddd6c40f88a1c78eb66af4764d7335d02ba181dc5b9302f",
+    "results/zero_margin_tightness/corpus.txt": "a2c465dfe7aa3c5435fb014ebd9d40fad27c06c87083733be296dff757189b34",
+    "scripts/analyze_global_cut_h0_full.cpp": "2808db417614d5e503cec6772733c051df313be79dbc56a577e5069fa3c332bc",
+    "scripts/analyze_global_cut_landscape_n15.cpp": "6a0bf46f031a27c3b9f5023d3ccbcc63cfe88355f188f9a859307a4ee27edb1e",
+    "scripts/report_global_cut_h0_full.py": "feb9a1e83c5740848ebba9c3d18ea776d929185eeb881f4517c76cd45962791f",
+    "tests/test_global_cut_h0_full.py": "1826f9f4c5537cfc8bae2006a35717ab364d04bcb320a5d460499a0d1a73ce0d"
+  },
+  "test_results": {
+    "command": "python3 -m unittest discover -s tests -p test_global_cut_h0_full.py -v",
+    "elapsed_seconds": 183.308,
+    "errors": 0,
+    "failures": 0,
+    "independently_verified_H0_witnesses": 19270,
+    "sample_fivesets_compared": 120120,
+    "skipped": 0,
+    "status": "PASS",
+    "tests_run": 3
+  },
+  "validation": "Every one of the 120120 sample five-sets compared to prior validated BFS landscape; independent recurrence verifies every saved H0 witness core optimum."
+}

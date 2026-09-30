@@ -1,0 +1,11 @@
+{
+  "command": "python3 -m unittest discover -s tests -p test_global_cut_h0_full.py -v",
+  "tests_run": 3,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "elapsed_seconds": 183.308,
+  "status": "PASS",
+  "sample_fivesets_compared": 120120,
+  "independently_verified_H0_witnesses": 19270
+}
