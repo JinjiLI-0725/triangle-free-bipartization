@@ -1,112 +1,131 @@
 # Triangle-Free Bipartization
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22894110.svg)](https://doi.org/10.5281/zenodo.22894110)
 [![Latest Release](https://img.shields.io/github/v/release/JinjiLI-0725/triangle-free-bipartization)](https://github.com/JinjiLI-0725/triangle-free-bipartization/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Reproducible computational and structural study of a five-vertex induction approach to triangle-free graph bipartization.
+Reproducible computational and structural study of five-vertex induction and global cut stability in triangle-free graph bipartization.
 
-**Corrected v2 paper:** [PDF](paper/triangle_free_paper_v2.pdf) · [LaTeX source](paper/triangle_free_paper_v2.tex)  
-**Novelty audit:** [paper/NOVELTY_AUDIT_V2.md](paper/NOVELTY_AUDIT_V2.md)  
-**Corrected v0.2.0 Zenodo record:** [10.5281/zenodo.22894110](https://doi.org/10.5281/zenodo.22894110)  
-**Previous v0.1.2 record:** [10.5281/zenodo.22876896](https://doi.org/10.5281/zenodo.22876896)
+**Current v3 paper:** [PDF](paper/triangle_free_paper_v3.pdf) · [LaTeX source](paper/triangle_free_paper_v3.tex)  
+**v3 reproducibility code/data:** `scripts/`, `tests/`, and compact result tables under `results/`  
+**Previous v0.2.0 Zenodo record:** [10.5281/zenodo.22894110](https://doi.org/10.5281/zenodo.22894110)  
+**Next release:** v0.3.0
 
-## Important correction to v1
+## Main v3 phenomenon
 
-For a five-set (X), define
+For a graph \(G\), write
 
-[
-ell(X)=2d(G[X])+e(X,G-X).
-]
+\[
+d(G)=|E(G)|-\operatorname{MaxCut}(G).
+\]
 
-The coordinated-flip selection inequality gives
+For a five-set \(Y\) and a maximum cut \(f\) of \(G\), let \(R_f(Y)\) be the number of monochromatic edges under \(f\) incident with \(Y\), and let \(\Delta_f(Y)\) be the additional improvement obtained by reoptimizing the cut on \(G-Y\). Then exactly
 
-[
-d(G)-d(G-X)le
-leftlfloor rac{ell(X)}2-Phi_Xightfloor.
-]
+\[
+d(G)-d(G-Y)=R_f(Y)+\Delta_f(Y).
+\]
 
-Since (Phi_Xge0), the five-set induction target is automatic whenever
+The v3 exact saved-corpus audit finds that every one of the **19,270 saved canonical \(n=15\) graphs** has a five-set \(Y\) satisfying
 
-[
-ell(X)le 4k-1.
-]
+\[
+d(G)-d(G-Y)\le 5
+\]
 
-Thus at (k=3), the automatic range is (L(G)le11), not (L(G)le10). The saved global-(L=11) 3-for-3 audit remains a valid structural computation, but it is **not needed** to establish Candidate A in that regime.
+and, for some maximum cut \(f\) of \(G\),
 
-## What the project currently contributes
+\[
+\Delta_f(Y)=0.
+\]
 
-- a five-vertex induction framework for the Erdős triangle-free bipartization conjecture;
-- an exact coordinated-flip identity and selection inequality;
-- exact edge/star/biclique interaction corollaries;
-- exact balanced-extension and mixed-(t=2) reduced-state certificates;
-- explicit computational diagnostics showing that stronger fixed-set statements can fail while changing the five-set repairs the obstruction;
-- a reproducible 3-for-3 exchange audit on the saved global-(L=11) corpus;
-- a literature audit connecting the project to established frustration-critical and weakly-bipartite signed-graph theory.
+Equivalently, some global maximum cut of \(G\) restricts to a maximum cut of \(G-Y\).
+
+The same property holds for all:
+
+- 5,337 saved graphs with \(L(G)\ge 12\),
+- 2,103 saved graphs with \(d(G)>5\),
+- 7 exactly identified edge-critical saved graphs.
+
+No failure was found in the saved corpus.
+
+## Important scope note
+
+This is an exact statement about the saved corpus used by the project. The repository does **not** claim:
+
+- a proof of the Erdős triangle-free bipartization conjecture;
+- a proof of the five-set induction target for all graphs;
+- that the saved 19,270 graphs are the complete universe of triangle-free graphs on 15 vertices;
+- that the finite \(n=15\) extremal value is new.
 
 The full Erdős conjecture remains open.
 
-## Saved global-L=11 exchange audit
+## Corrected automatic threshold
 
-The saved corpus contains 3,436 canonical records with global (L(G)=11). Relative to the distinguished recorded five-set, each admits a 3-for-3 exchange (Y) satisfying
+For a five-set \(Y\), define
 
-[
-|Xcap Y|=2,
-qquad
-d(G)-d(G-Y)le5.
-]
+\[
+\ell(Y)=2d(G[Y])+e(Y,G-Y).
+\]
 
-Among these records, 762 have (d(G)>5) and require a nontrivial search; all 762 pass.
+The coordinated-flip selection inequality implies
 
-After the threshold correction, this result should be interpreted as **exchange-structure evidence**, not as a necessary proof certificate for Candidate A.
+\[
+d(G)-d(G-Y)\le
+\left\lfloor \frac{\ell(Y)}2-\Phi_Y\right\rfloor.
+\]
 
-## Scope
+Since \(\Phi_Y\ge0\), the five-set induction target is automatic whenever
 
-This repository does **not** claim:
+\[
+\ell(Y)\le 4k-1.
+\]
 
-- a proof of the Erdős triangle-free bipartization conjecture;
-- a new extremal evaluation at (n=10) or (n=15);
-- that the saved (n=15) corpus is the complete universe of triangle-free graphs on 15 vertices;
-- that frustration-criticality or the odd-(K_5) weakly-bipartite characterization is new.
+Thus at \(k=3\), the automatic range extends through \(L(G)\le 11\). This corrects the threshold used in the original v1 draft.
 
-See [paper/NOVELTY_AUDIT_V2.md](paper/NOVELTY_AUDIT_V2.md) for the claim-by-claim literature audit.
+## Global cut stability viewpoints
+
+### Optimal-face projection
+
+Let \(\operatorname{Opt}(G)\) be the set of maximum-cut colorings of \(G\), modulo global reversal, and define
+
+\[
+\operatorname{Res}_Y(G)=\{f|_{G-Y}: f\in\operatorname{Opt}(G)\}.
+\]
+
+Optimal restriction for \(Y\) is exactly
+
+\[
+\operatorname{Res}_Y(G)\cap\operatorname{Opt}(G-Y)\neq\varnothing.
+\]
+
+### Extension frontier
+
+For \(H=G-Y\), define \(F_Y(j)\) as the minimum extension cost over \(Y\) among colorings of \(H\) having \(d(H)+j\) monochromatic edges. Then
+
+\[
+d(G)-d(G-Y)=\min_{j\ge0}\bigl(j+F_Y(j)\bigr).
+\]
+
+Optimal restriction holds exactly when this minimum is attained at \(j=0\).
+
+The saved data falsifies stronger frontier-shape guesses such as monotonicity, one-step Lipschitz behavior, and discrete convexity. The surviving phenomenon is the weaker global statement that, for some useful five-set \(Y\), the combined cost \(j+F_Y(j)\) is minimized at \(j=0\).
 
 ## Reproducibility
 
-Run the scope verifier:
+The public v3 package includes exact global-cut landscape code, the full saved-corpus H0 audit code, compact witness tables and summaries, sample checkpoint data, extension-frontier diagnostics, optimal-face projection diagnostics, and portable release tests.
 
-```bash
-python3 scripts/verify_L11_3for3_scope.py
-```
+The lightweight public test suite intentionally excludes the 5.8 GB raw five-set feature table and the 531 MB full-corpus checkpoint directory.
 
-Verify the archived release files:
+Portable v3 tests:
 
-```bash
-sha256sum -c results/hard_regime_L_n15/L11_3for3_SHA256SUMS.txt
-```
+    PYTHONPATH=.:src python3 -m pytest -q \
+      tests/test_optimal_restriction_identities.py \
+      tests/test_optimal_face_projection.py \
+      tests/test_extension_frontier.py \
+      tests/test_inherited_optimum_count.py \
+      tests/test_global_cut_landscape_n15.py \
+      tests/test_global_cut_h0_full.py
 
-The certified scope check reports:
-
-```text
-missing: [] count = 0
-extra: [] count = 0
-graph6 mismatches: [] count = 0
-audit ID set matches: True
-audit failures: []
-SCOPE_CERTIFICATE=PASS
-```
+Release validation result: `21 passed, 3 skipped`.
 
 ## Citation
 
-Please cite the corrected v0.2.0 Zenodo release:
-
-```bibtex
-@software{li_2026_triangle_free_bipartization_v020,
-  author  = {Jinji Li},
-  title   = {Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization},
-  year    = {2026},
-  version = {0.2.0},
-  doi     = {10.5281/zenodo.22894110},
-  url     = {https://doi.org/10.5281/zenodo.22894110}
-}
-```
+Version 0.3.0 is the current corrected research-note release. The version-specific Zenodo DOI will be added after Zenodo archives the GitHub v0.3.0 release.
