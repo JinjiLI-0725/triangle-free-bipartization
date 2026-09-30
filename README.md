@@ -1,5 +1,6 @@
 # Triangle-Free Bipartization
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23053432.svg)](https://doi.org/10.5281/zenodo.23053432)
 [![Latest Release](https://img.shields.io/github/v/release/JinjiLI-0725/triangle-free-bipartization)](https://github.com/JinjiLI-0725/triangle-free-bipartization/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -7,8 +8,8 @@ Reproducible computational and structural study of five-vertex induction and glo
 
 **Current v3 paper:** [PDF](paper/triangle_free_paper_v3.pdf) · [LaTeX source](paper/triangle_free_paper_v3.tex)  
 **v3 reproducibility code/data:** `scripts/`, `tests/`, and compact result tables under `results/`  
-**Previous v0.2.0 Zenodo record:** [10.5281/zenodo.22894110](https://doi.org/10.5281/zenodo.22894110)  
-**Next release:** v0.3.0
+**Current v0.3.0 Zenodo record:** [10.5281/zenodo.23053432](https://doi.org/10.5281/zenodo.23053432)  
+**Previous v0.2.0 Zenodo record:** [10.5281/zenodo.22894110](https://doi.org/10.5281/zenodo.22894110)
 
 ## Main v3 phenomenon
 
@@ -128,4 +129,15 @@ Release validation result: `21 passed, 3 skipped`.
 
 ## Citation
 
-Version 0.3.0 is the current corrected research-note release. The version-specific Zenodo DOI will be added after Zenodo archives the GitHub v0.3.0 release.
+Please cite the v0.3.0 Zenodo release:
+
+```bibtex
+@software{li_2026_triangle_free_bipartization_v030,
+  author  = {Jinji Li},
+  title   = {Optimal-Restriction Five-Sets and Global Cut Stability in Triangle-Free Graph Bipartization},
+  year    = {2026},
+  version = {0.3.0},
+  doi     = {10.5281/zenodo.23053432},
+  url     = {https://doi.org/10.5281/zenodo.23053432}
+}
+```
