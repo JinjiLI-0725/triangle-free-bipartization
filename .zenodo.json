@@ -1,7 +1,7 @@
 {
-  "title": "Exchange Identities and Computational Diagnostics for Triangle-Free Graph Bipartization",
+  "title": "Optimal-Restriction Five-Sets and Global Cut Stability in Triangle-Free Graph Bipartization",
   "upload_type": "software",
-  "description": "Corrected v2 release of a reproducible computational and structural study of a five-vertex induction approach to triangle-free graph bipartization. The release includes the corrected preprint, exact checking code, reduced-state certificates, source corpus records, deterministic verification scripts, audit output, citation metadata, and SHA-256 checksums. A key correction is that the empty-flip bound already proves the five-set induction target whenever L(G) <= 4k-1; thus at k=3 the automatic range extends through L(G)=11. The saved global-L=11 3-for-3 audit is therefore presented as exchange-structure evidence rather than a necessary proof certificate. The full Erdős triangle-free bipartization conjecture remains open.",
+  "description": "Version 0.3.0 of a reproducible computational and structural study of five-vertex induction for triangle-free graph bipartization. The v3 release introduces an exact global cut-stability audit on a saved canonical corpus of 19,270 n=15 graphs. Every saved graph admits a five-set Y with d(G)-d(G-Y) <= 5 such that some maximum cut of G restricts to a maximum cut of G-Y. The same property holds for all 5,337 saved graphs with L(G) >= 12, all 2,103 saved graphs with d(G) > 5, and all seven exactly identified edge-critical saved graphs. The release includes the v3 research note, global-cut landscape code, compact H0 witness tables, extension-frontier diagnostics, optimal-face projection diagnostics, sample checkpoints, and portable validation tests. The full Erdős triangle-free bipartization conjecture remains open, and the saved corpus is not claimed to exhaust all triangle-free graphs on 15 vertices.",
   "creators": [
     {
       "name": "Li, Jinji"
@@ -12,13 +12,14 @@
     "triangle-free graphs",
     "MaxCut",
     "bipartization",
+    "global cut stability",
+    "optimal cuts",
     "computational mathematics",
     "combinatorics",
     "exact computation",
-    "exchange arguments",
-    "frustration index"
+    "reproducibility"
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "language": "eng",
   "license": "MIT",
   "related_identifiers": [
